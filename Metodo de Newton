@@ -1,0 +1,103 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO06lIsOnz6XDOLQQ1ysDmr",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/dianaoropeza30/Practica-2/blob/main/Metodo%20de%20Newton\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "v4cWsgE67bi8",
+        "outputId": "339423fd-a603-4445-c137-eb718b716409"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "# iter  \t\t P  \t\t error\n",
+            "1 \t\t 1.1000  \t 100.0000\n",
+            "2 \t\t 2.905598 \t 1.805598\n",
+            "3 \t\t 2.314887 \t 0.590711\n",
+            "4 \t\t 1.965994 \t 0.348894\n",
+            "5 \t\t 1.843310 \t 0.122684\n",
+            "6 \t\t 1.829544 \t 0.013766\n",
+            "7 \t\t 1.829384 \t 0.000161\n",
+            "8 \t\t 1.829384 \t 0.000000\n",
+            "9 \t\t 1.829384 \t 0.000000\n",
+            "La raíz de la función dada en el intervalo [1.0000,2.0000] es 1.8293836\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "from math import *\n",
+        "import numpy as np\n",
+        "import matplotlib . pyplot as plt\n",
+        "def funcion1(x):\n",
+        "    return np.exp(x) + 2**(-x)+ 2*cos(x)-6\n",
+        "def d1(x):\n",
+        "    return np.exp(x) - (np.log(2)/( 2**(x))) -2*sin(x)\n",
+        "    \n",
+        "#Método de Newton\n",
+        "# guarda valores iniciales para el Metodo de Newton\n",
+        "pi=1.1\n",
+        "# Ingreso datos de entrada para los diferentes métodos a trabajar\n",
+        "a = 1\n",
+        "b = 2\n",
+        "\n",
+        "#guarda valores iniciales del error y del número de iteraciones\n",
+        "tol = 0.000000001  #float(input(\"Ingrese el valor de la tolerancia: \"))\n",
+        "nmax = 20 #float(input(\"Ingrese el número máximo de iteraciones: \"))\n",
+        "error = 100\n",
+        "niter = 0\n",
+        "# Método de  Newton\n",
+        "\n",
+        "#Evaluacion de la función en los puntos a, b y m\n",
+        "\n",
+        "i=1\n",
+        "print(\"# iter  \\t\\t P  \\t\\t error\")\n",
+        "print(\"{0} \\t\\t {1:6.4f}  \\t {2:6.4f}\".format(i, pi, error ))\n",
+        "\n",
+        "# ciclo iterativo\n",
+        "while error > tol and i <= nmax:\n",
+        "    fa=funcion1(pi)  \n",
+        "    da=d1(pi)\n",
+        "    p = pi - (fa/da)\n",
+        "    error = abs(p - pi)\n",
+        "\n",
+        "    pi=p\n",
+        "    i += 1\n",
+        "    print(\"{0} \\t\\t {1:6.6f} \\t {2:6.6f}\".format(i, p,error ))\n",
+        "\n",
+        "print(\"La raíz de la función dada en el intervalo [{0:6.4f},{1:6.4f}] es {2:6.7f}\".format(a,b,p))"
+      ]
+    }
+  ]
+}

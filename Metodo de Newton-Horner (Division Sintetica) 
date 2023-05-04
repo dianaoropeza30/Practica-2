@@ -1,0 +1,96 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNRMxhEW/wZMVtKi4nR0NR5",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/dianaoropeza30/Practica-2/blob/main/Metodo%20de%20Newton-Horner%20(Division%20Sintetica)%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "zQNI0vlGAD2f",
+        "outputId": "55e31dea-44f7-42e7-eda9-62715a1e9564"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1 \t\t 1.273707 \t 0.226293\n",
+            "2 \t\t 1.216751 \t 0.056956\n",
+            "3 \t\t 1.213423 \t 0.003328\n",
+            "4 \t\t 1.213412 \t 0.000011\n",
+            "5 \t\t 1.213412 \t 0.000000\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "import numpy.polynomial.polynomial as pol\n",
+        "\n",
+        "#Metodo de Newton-Horner (Division Sintetica) \n",
+        "\n",
+        "tol=0.000001\n",
+        "i=0\n",
+        "nmax=20\n",
+        "error=100\n",
+        "#coeficientes de x^4 + 2x^3 + x^2-x-6\n",
+        "a=-6\n",
+        "b=-1\n",
+        "c=1\n",
+        "d=2\n",
+        "e=1\n",
+        "#Se define la funcion p(x)\n",
+        "p = np.array([a,b,c, d,  e ])\n",
+        "pi=1.5\n",
+        "\n",
+        "#Ciclo iterativo \n",
+        "while error > tol and i <= nmax:\n",
+        "   #Se aplica el método de Horner (division sintetica) \n",
+        "  q4=e\n",
+        "  q3=d+ q4*(pi)\n",
+        "  q2=c + q3*(pi)\n",
+        "  q1=b+ q2*pi\n",
+        "\n",
+        "  #Se determina el Q(x)\n",
+        "  q=np.array([q1,q2, q3,  q4 ])\n",
+        "  \n",
+        "\n",
+        "  #Se calcula el valor de cada pn\n",
+        "  pn = pi - (pol.polyval(pi, p))/(pol.polyval(pi, q))\n",
+        "\n",
+        "  error = abs(pn - pi)\n",
+        "\n",
+        "  pi=pn\n",
+        "  i += 1\n",
+        "  print(\"{0} \\t\\t {1:6.6f} \\t {2:6.6f}\".format(i, pn,error ))"
+      ]
+    }
+  ]
+}

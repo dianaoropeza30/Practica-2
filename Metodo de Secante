@@ -1,0 +1,85 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/dianaoropeza30/Practica-2/blob/main/Metodo%20de%20Secante\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "from math import *\n",
+        "import numpy as np\n",
+        "import matplotlib . pyplot as plt\n",
+        "def funcion1(x):\n",
+        "    return np.exp(x) + 2**(-x)+ 2*cos(x)-6\n",
+        "\n",
+        "#Método de la Secante \n",
+        "\n",
+        "l1=[]\n",
+        "# Ingreso datos de entrada para los diferentes métodos a trabajar\n",
+        "a = 1\n",
+        "b = 2\n",
+        "\n",
+        "# guarda valores iniciales\n",
+        "p0=1\n",
+        "p1=1.5\n",
+        "\n",
+        "#guarda valores iniciales del error y del número de iteraciones\n",
+        "tol = 0.000000001  #float(input(\"Ingrese el valor de la tolerancia: \"))\n",
+        "nmax = 20 #float(input(\"Ingrese el número máximo de iteraciones: \"))\n",
+        "error = 100\n",
+        "niter = 0\n",
+        "# Método de  Secante \n",
+        "\n",
+        "#Evaluacion de la función en los puntos a, b y m\n",
+        "\n",
+        "i=1\n",
+        "print(\"# iter  \\t\\t P  \\t\\t error\")\n",
+        "print(\"{0} \\t\\t {1:6.4f}  \\t {2:6.4f}\".format(i, p0, error ))\n",
+        "\n",
+        "# ciclo iterativo\n",
+        "while error > tol and i <= nmax:\n",
+        "   \n",
+        "    fa=funcion1(p0)  \n",
+        "    fb=funcion1(p1)\n",
+        "    p = p1 - (fb*(p1-p0))/(fb-fa)\n",
+        "    \n",
+        "    error = abs(p1 - p0)\n",
+        "    p0=p1\n",
+        "    p1=p\n",
+        "    \n",
+        "    i += 1\n",
+        "    l1.append(error)\n",
+        "    print(\"{0} \\t\\t {1:15.15f} \\t {2:15.15f} \".format(i, p,error ))\n",
+        "    \n",
+        "\n",
+        "print(\"La raíz de la función dada en el intervalo [{0:6.4f},{1:6.4f}] es {2:15.15f}\".format(a,b,p))"
+      ],
+      "metadata": {
+        "id": "G6w3h9Rp8j9i"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
